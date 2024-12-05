@@ -2,6 +2,8 @@ package com.aluracursos.screematch.model;
 
 import jakarta.persistence.*;
 
+
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -25,6 +27,9 @@ public class Serie {
     private String actores;
     private String sinopsis;
 
+    @Transient // no se guarda en la base de datos
+    private List<Episodio> episodios;
+
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
         this.totalTemporadas = datosSerie.totalTemporadas();
@@ -34,6 +39,7 @@ public class Serie {
         this.actores = datosSerie.actores();
         this.sinopsis = datosSerie.sinopsis();
     }
+
 
 
 

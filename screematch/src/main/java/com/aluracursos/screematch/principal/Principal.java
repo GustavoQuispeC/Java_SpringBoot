@@ -1,12 +1,9 @@
 package com.aluracursos.screematch.principal;
 
 import com.aluracursos.screematch.model.*;
+import com.aluracursos.screematch.repository.SerieRepository;
 import com.aluracursos.screematch.service.ConsumoAPI;
 import com.aluracursos.screematch.service.ConvierteDatos;
-
-import java.sql.SQLOutput;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +14,11 @@ public class Principal {
     private final String  API_KEY = "&apikey=b5d7212b";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private SerieRepository repositorio;
 
+    public Principal(SerieRepository repository) {
+        this.repositorio = repository;
+    }
 
     public void muestraElMenu(){
         var opcion = -1;
@@ -76,7 +77,12 @@ public class Principal {
     }
     private void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
-        datosSeries.add(datos);
+        //datosSeries.add(datos);
+
+        // Crear un objeto Serie y guardarlo en la base de datos
+        Serie serie = new Serie(datos);
+        repositorio.save(serie);
+
         System.out.println(datos);
     }
     private void mostrarSeriesBuscadas() {
