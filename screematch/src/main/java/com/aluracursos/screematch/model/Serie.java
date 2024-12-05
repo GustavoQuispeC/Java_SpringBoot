@@ -1,13 +1,27 @@
 package com.aluracursos.screematch.model;
 
+import jakarta.persistence.*;
+
 import java.util.Optional;
 
+@Entity
+@Table (name = "series")
+
 public class Serie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
+
     private Integer totalTemporadas;
     private Double evaluacion;
     private String poster;
+
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
+
     private String actores;
     private String sinopsis;
 
@@ -20,6 +34,8 @@ public class Serie {
         this.actores = datosSerie.actores();
         this.sinopsis = datosSerie.sinopsis();
     }
+
+
 
     public String getTitulo() {
         return titulo;
@@ -75,6 +91,14 @@ public class Serie {
 
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
