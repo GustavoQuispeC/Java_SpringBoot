@@ -40,7 +40,9 @@ public class Serie {
         this.sinopsis = datosSerie.sinopsis();
     }
 
+    public Serie() {
 
+    }
 
 
     public String getTitulo() {
