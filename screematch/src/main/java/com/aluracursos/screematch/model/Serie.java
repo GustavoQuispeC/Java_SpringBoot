@@ -27,7 +27,9 @@ public class Serie {
     private String actores;
     private String sinopsis;
 
-    @Transient // no se guarda en la base de datos
+
+    //@Transient para que  no guarde en la base de datos
+   @OneToMany(mappedBy = "serie")
     private List<Episodio> episodios;
 
     public Serie(DatosSerie datosSerie) {
@@ -109,6 +111,14 @@ public class Serie {
         this.id = id;
     }
 
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
+    }
+
     @Override
     public String toString() {
         return
@@ -122,4 +132,6 @@ public class Serie {
                 ", sinopsis='" + sinopsis + '\''
                 ;
     }
+
+
 }

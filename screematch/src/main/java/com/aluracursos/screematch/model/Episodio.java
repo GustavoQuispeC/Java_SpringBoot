@@ -1,14 +1,26 @@
 package com.aluracursos.screematch.model;
 
+import jakarta.persistence.*;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "episodios")
 public class Episodio {
-    private  Integer temporada;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
+    private Integer temporada;
     private String titulo;
     private Integer numeroEpisodio;
     private Double evaluacion;
     private LocalDate fechaDeLanzamiento;
+
+    @ManyToOne
+    private Serie serie;
+
 
     public Episodio(Integer numero, DatosEpisodio d) {
         this.temporada = numero;
@@ -19,14 +31,16 @@ public class Episodio {
         } catch (NumberFormatException e) {
             this.evaluacion = 0.0;
         }
-        try{
+        try {
             this.fechaDeLanzamiento = LocalDate.parse(d.fechaDeLanzamiento());
-        } catch (DateTimeException e){
+        } catch (DateTimeException e) {
             this.fechaDeLanzamiento = null;
         }
 
 
+    }
 
+    public Episodio() {
     }
 
     public Integer getTemporada() {
@@ -69,13 +83,21 @@ public class Episodio {
         this.fechaDeLanzamiento = fechaDeLanzamiento;
     }
 
+    public Serie getSerie() {
+        return serie;
+    }
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
+
     @Override
     public String toString() {
         return
                 "temporada=" + temporada +
-                ", titulo='" + titulo + '\'' +
-                ", numeroEpisodio=" + numeroEpisodio +
-                ", evaluacion=" + evaluacion +
-                ", fechaDeLanzamiento=" + fechaDeLanzamiento;
+                        ", titulo='" + titulo + '\'' +
+                        ", numeroEpisodio=" + numeroEpisodio +
+                        ", evaluacion=" + evaluacion +
+                        ", fechaDeLanzamiento=" + fechaDeLanzamiento;
     }
 }
