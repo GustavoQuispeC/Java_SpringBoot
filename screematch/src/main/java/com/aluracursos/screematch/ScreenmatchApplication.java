@@ -11,20 +11,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
-	@Autowired // Inyección de dependencias
-	private SerieRepository repository;
-	public static void main(String[] args) {
-		SpringApplication.run(ScreenmatchApplication.class, args);
-	}
+    @Autowired
+    private SerieRepository repository;
 
-	@Override
-	public void run(String... args) throws Exception {
-		Principal principal = new Principal(repository);
+    public static void main(String[] args) {
+        SpringApplication.run(ScreenmatchApplication.class, args);
+    }
 
-		principal.muestraElMenu();
+    @Override
+    public void run(String... args) throws Exception {
+        Principal principal = new Principal(repository);
+        principal.muestraElMenu();
 
-//		EjemploStreams ejemploStreams = new EjemploStreams();
-//		ejemploStreams.muestraEjemplo();
 
-	}
+    }
 }

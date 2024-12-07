@@ -1,14 +1,14 @@
 package com.aluracursos.screematch.model;
 
 public enum Categoria {
-    Accion("Action"),
-    Romance("Romance"),
-    Comedia("Comedy"),
-    Drama("Drama"),
-    Crimen("Crime");
+    ACCION("Action"),
+    ROMANCE("Romance"),
+    COMEDIA("Comedy"),
+    DRAMA("Drama"),
+    CRIMEN("Crime");
 
     private String categoriaOmdb;
-    Categoria (String categoriaOmdb) {
+    Categoria (String categoriaOmdb){
         this.categoriaOmdb = categoriaOmdb;
     }
 
@@ -20,4 +20,5 @@ public enum Categoria {
         }
         throw new IllegalArgumentException("Ninguna categoria encontrada: " + text);
     }
+
 }

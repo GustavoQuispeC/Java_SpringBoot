@@ -4,48 +4,67 @@ import jakarta.persistence.*;
 
 
 import java.util.List;
-import java.util.Optional;
+import java.util.OptionalDouble;
 
 @Entity
-@Table (name = "series")
-
+@Table(name = "series")
 public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long Id;
     @Column(unique = true)
     private String titulo;
-
     private Integer totalTemporadas;
     private Double evaluacion;
     private String poster;
-
     @Enumerated(EnumType.STRING)
     private Categoria genero;
-
     private String actores;
     private String sinopsis;
-
-
-    //@Transient para que  no guarde en la base de datos
-   @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios;
 
-    public Serie(DatosSerie datosSerie) {
+    public Serie(){}
+
+    public Serie(DatosSerie datosSerie){
         this.titulo = datosSerie.titulo();
         this.totalTemporadas = datosSerie.totalTemporadas();
-        this.evaluacion = Optional.of(Double.valueOf(datosSerie.evaluacion())).orElse(0.0);
+        this.evaluacion = OptionalDouble.of(Double.valueOf(datosSerie.evaluacion())).orElse(0);
         this.poster = datosSerie.poster();
         this.genero = Categoria.fromString(datosSerie.genero().split(",")[0].trim());
         this.actores = datosSerie.actores();
         this.sinopsis = datosSerie.sinopsis();
     }
 
-    public Serie() {
+    @Override
+    public String toString() {
+        return  "genero=" + genero +
+                "titulo='" + titulo + '\'' +
+                ", totalTemporadas=" + totalTemporadas +
+                ", evaluacion=" + evaluacion +
+                ", poster='" + poster + '\'' +
+                ", actores='" + actores + '\'' +
+                ", sinopsis='" + sinopsis + '\'' +
+                ", episodios='" + episodios + '\'';
 
     }
 
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
+        this.episodios = episodios;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -102,36 +121,4 @@ public class Serie {
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Episodio> getEpisodios() {
-        return episodios;
-    }
-
-    public void setEpisodios(List<Episodio> episodios) {
-        this.episodios = episodios;
-    }
-
-    @Override
-    public String toString() {
-        return
-                "genero=" + genero +'\'' +
-                "titulo='" + titulo + '\'' +
-                ", totalTemporadas=" + totalTemporadas +
-                ", evaluacion=" + evaluacion +
-                ", poster='" + poster + '\'' +
-
-                ", actores='" + actores + '\'' +
-                ", sinopsis='" + sinopsis + '\''
-                ;
-    }
-
-
 }
