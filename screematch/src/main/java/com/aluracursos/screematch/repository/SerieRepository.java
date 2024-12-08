@@ -9,4 +9,10 @@ import java.util.Optional;
 
 public interface SerieRepository extends JpaRepository<Serie, Long> {
     Optional<Serie> findByTituloContainsIgnoreCase(String titulo);
+
+    List<Serie> findTop5ByOrderByEvaluacionDesc();
+
+    List<Serie> findByGenero (Categoria categoria);
+
+
 }

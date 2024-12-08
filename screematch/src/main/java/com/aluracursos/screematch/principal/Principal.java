@@ -32,7 +32,8 @@ public class Principal {
                     2 - Buscar episodios
                     3 - Mostrar series buscadas
                     4 - Buscar series por titulo
-                                  
+                    5 - Top 5 mejores series
+                    6 - Buscar series por Categoria              
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -51,6 +52,12 @@ public class Principal {
                     break;
                 case 4:
                     mostrarSeriesPorTitulo();
+                    break;
+                case 5:
+                    buscarTop5Series();
+                    break;
+                case 6:
+                    buscarSeriesPorCategoria();
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -62,7 +69,6 @@ public class Principal {
     }
 
 
-
     private DatosSerie getDatosSerie() {
         System.out.println("Escribe el nombre de la serie que deseas buscar");
         var nombreSerie = teclado.nextLine();
@@ -71,6 +77,7 @@ public class Principal {
         DatosSerie datos = conversor.obtenerDatos(json, DatosSerie.class);
         return datos;
     }
+
     private void buscarEpisodioPorSerie() {
         mostrarSeriesBuscadas();
         System.out.println("Escribe el nombre de la seria de la cual quieres ver los episodios");
@@ -80,7 +87,7 @@ public class Principal {
                 .filter(s -> s.getTitulo().toLowerCase().contains(nombreSerie.toLowerCase()))
                 .findFirst();
 
-        if(serie.isPresent()){
+        if (serie.isPresent()) {
             var serieEncontrada = serie.get();
             List<DatosTemporadas> temporadas = new ArrayList<>();
 
@@ -101,8 +108,8 @@ public class Principal {
         }
 
 
-
     }
+
     private void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
         Serie serie = new Serie(datos);
@@ -123,11 +130,26 @@ public class Principal {
         System.out.println("Escribe el titulo de la serie que deseas buscar");
         var nombreSerie = teclado.nextLine();
         Optional<Serie> seriesBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
-       if(seriesBuscada.isPresent()){
-           System.out.println(seriesBuscada.get());
-         }else{
-              System.out.println("No se encontró la serie");
+        if (seriesBuscada.isPresent()) {
+            System.out.println(seriesBuscada.get());
+        } else {
+            System.out.println("No se encontró la serie");
 
-       }
+        }
     }
+
+    private void buscarTop5Series() {
+        List<Serie> top5 = repositorio.findTop5ByOrderByEvaluacionDesc();
+        top5.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " Evaluación: " + s.getEvaluacion()));
+    }
+
+    private void buscarSeriesPorCategoria(){
+        System.out.println("Escriba el genero/categoría de la serie que desea buscar");
+        var genero = teclado.nextLine();
+        var categoria = Categoria.fromEspanol(genero);
+        List<Serie> seriesPorCategoria = repositorio.findByGenero(categoria);
+        System.out.println("Las series de la categoría " + genero);
+        seriesPorCategoria.forEach(System.out::println);
+    }
+
 }
