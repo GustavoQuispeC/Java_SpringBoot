@@ -58,6 +58,9 @@ public class Principal {
                     break;
                 case 6:
                     buscarSeriesPorCategoria();
+                    break;
+                     case 7:
+                    buscarEpisodioPorSerie();
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;

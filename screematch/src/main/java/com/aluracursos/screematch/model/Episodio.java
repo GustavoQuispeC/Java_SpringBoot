@@ -15,6 +15,7 @@ public class Episodio {
     private Integer numeroEpisodio;
     private Double evaluacion;
     private LocalDate fechaDeLanzamiento;
+
     @ManyToOne
     private Serie serie;
 
@@ -85,13 +86,6 @@ public class Episodio {
         this.fechaDeLanzamiento = fechaDeLanzamiento;
     }
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
 
     @Override
     public String toString() {
