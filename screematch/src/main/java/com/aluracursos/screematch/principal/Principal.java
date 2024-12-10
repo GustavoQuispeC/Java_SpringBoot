@@ -59,8 +59,12 @@ public class Principal {
                 case 6:
                     buscarSeriesPorCategoria();
                     break;
-                     case 7:
+                case 7:
                     buscarEpisodioPorSerie();
+                    break;
+                    case 8:
+                    buscarEpisodioPorSerie();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -146,7 +150,7 @@ public class Principal {
         top5.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " Evaluación: " + s.getEvaluacion()));
     }
 
-    private void buscarSeriesPorCategoria(){
+    private void buscarSeriesPorCategoria() {
         System.out.println("Escriba el genero/categoría de la serie que desea buscar");
         var genero = teclado.nextLine();
         var categoria = Categoria.fromEspanol(genero);
