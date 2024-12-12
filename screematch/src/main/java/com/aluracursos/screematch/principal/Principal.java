@@ -158,6 +158,7 @@ public class Principal {
         top5.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " Evaluación: " + s.getEvaluacion()));
     }
 
+    //Buscar series por categoria
     private void buscarSeriesPorCategoria() {
         System.out.println("Escriba el genero/categoría de la serie que desea buscar");
         var genero = teclado.nextLine();
@@ -167,6 +168,7 @@ public class Principal {
         seriesPorCategoria.forEach(System.out::println);
     }
 
+    //Filtrar series por temporada y evaluación
     public void filtrarSeriesPorTemporadaYEvaluacion() {
         System.out.println("Filtrar series con cuantas temporadas?");
         var totalTemporadas = teclado.nextInt();
@@ -182,6 +184,7 @@ public class Principal {
 
     }
 
+    //Buscar episodios por titulo
     private void buscarEpisodiosPorTitulo() {
         System.out.println("Escribe el nombre del episodio que deseas buscar");
         var nombreEpisodio = teclado.nextLine();
@@ -191,6 +194,7 @@ public class Principal {
 
     }
 
+    //Buscar los 5 mejores episodios de una serie
     private void buscarTop5Episodios() {
         buscarEpisodiosPorTitulo();
         if (seriesBuscada.isPresent()) {
