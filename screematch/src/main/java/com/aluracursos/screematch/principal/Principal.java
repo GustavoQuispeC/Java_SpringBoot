@@ -93,6 +93,7 @@ public class Principal {
         return datos;
     }
 
+    //Buscar episodios por serie
     private void buscarEpisodioPorSerie() {
         mostrarSeriesBuscadas();
         System.out.println("Escribe el nombre de la seria de la cual quieres ver los episodios");
@@ -121,8 +122,6 @@ public class Principal {
             serieEncontrada.setEpisodios(episodios);
             repositorio.save(serieEncontrada);
         }
-
-
     }
 
     private void buscarSerieWeb() {
@@ -133,6 +132,7 @@ public class Principal {
         System.out.println(datos);
     }
 
+    //Mostrar series buscadas
     private void mostrarSeriesBuscadas() {
         series = repositorio.findAll();
 
@@ -141,6 +141,7 @@ public class Principal {
                 .forEach(System.out::println);
     }
 
+    //Buscar series por titulo
     private void mostrarSeriesPorTitulo() {
         System.out.println("Escribe el titulo de la serie que deseas buscar");
         var nombreSerie = teclado.nextLine();
@@ -153,6 +154,7 @@ public class Principal {
         }
     }
 
+    //Buscar las 5 mejores series
     private void buscarTop5Series() {
         List<Serie> top5 = repositorio.findTop5ByOrderByEvaluacionDesc();
         top5.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " Evaluación: " + s.getEvaluacion()));
@@ -202,7 +204,6 @@ public class Principal {
             List<Episodio> topEpisodios = repositorio.top5Episodios(serie);
             topEpisodios.forEach(e -> System.out.printf("Serie: %s Temporada: %s Evaluación: %s\n",
                     e.getSerie().getTitulo(), e.getTemporada(), e.getTitulo(), e.getEvaluacion()));
-
 
         }
     }
