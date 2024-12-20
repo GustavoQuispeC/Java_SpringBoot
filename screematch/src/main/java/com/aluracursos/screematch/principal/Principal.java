@@ -22,7 +22,7 @@ public class Principal {
 
     private Optional<Serie> seriesBuscada;
 
-    public Principal(SerieRepository repository) {
+    public Principal() {
         this.repositorio = repository;
     }
 
