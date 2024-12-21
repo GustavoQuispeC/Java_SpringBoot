@@ -3,30 +3,42 @@ package com.aluracursos.screematch.controller;
 import com.aluracursos.screematch.dto.SerieDTO;
 import com.aluracursos.screematch.model.Serie;
 import com.aluracursos.screematch.repository.SerieRepository;
+import com.aluracursos.screematch.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/series")
 public class SerieController {
-
     @Autowired
-    private SerieRepository repository;
+    private SerieService servicio;
 
-    @GetMapping("/series")
-    public List<SerieDTO> obtenerTodasLasSeries() {
-        return repository.findAll().stream()
-                .map(s -> new SerieDTO(s.getTitulo(), s.getTotalTemporadas(),
-                        s.getEvaluacion(), s.getPoster(), s.getGenero().toString(),
-                        s.getActores(), s.getSinopsis())).collect(Collectors.toList());
+
+    @GetMapping()
+    public List<SerieDTO> obtenerTodasLasSeries(){
+        return servicio.obtenerTodasLasSeries();
     }
 
-    @GetMapping("/inicio")
-    public  String muestraMensaje() {
-        return "Hola, bienvenido a ScreenMatch";
+    @GetMapping("/top5")
+    public List<SerieDTO> obtenerTop5(){
+        return servicio.obtenerTop5();
     }
+    @GetMapping("/lanzamientos")
+    public List<SerieDTO> obtenerLanzamientosMasRecientes(){
+        return servicio.obtenerLanzamientosMasRecientes();
+    }
+
+    @GetMapping("/{id}")
+    public SerieDTO obtenerPorId(@PathVariable Long id){
+        return servicio.obtenerPorId(id);
+    }
+
+
 }

@@ -15,7 +15,6 @@ public class Episodio {
     private Integer numeroEpisodio;
     private Double evaluacion;
     private LocalDate fechaDeLanzamiento;
-
     @ManyToOne
     private Serie serie;
 
@@ -85,7 +84,6 @@ public class Episodio {
     public void setFechaDeLanzamiento(LocalDate fechaDeLanzamiento) {
         this.fechaDeLanzamiento = fechaDeLanzamiento;
     }
-
 
     @Override
     public String toString() {
