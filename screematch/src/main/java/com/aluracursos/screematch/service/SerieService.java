@@ -25,12 +25,12 @@ public class SerieService {
     public List<SerieDTO> obtenerLanzamientosMasRecientes(){
         return convierteDatos(repository.lanzamientosMasRecientes());
     }
-    public List<SerieDTO> convierteDatos(List<Serie> serie){
-        return serie.stream()
-                .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getEvaluacion(), s.getPoster(),
-                        s.getGenero(), s.getActores(), s.getSinopsis()))
-                .collect(Collectors.toList());
-    }
+//    public List<SerieDTO> convierteDatos(List<Serie> serie){
+//        return serie.stream()
+//                .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getEvaluacion(), s.getPoster(),
+//                        s.getGenero(), s.getActores(), s.getSinopsis()))
+//                .collect(Collectors.toList());
+//    }
 
     public SerieDTO obtenerPorId(Long id) {
         Optional<Serie> serie = repository.findById(id);
