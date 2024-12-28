@@ -32,13 +32,13 @@ public class SerieService {
                 .collect(Collectors.toList());
     }
 
-    public SerieDTO obtenerPorId(Long id) {
-        Optional<Serie> serie = repository.findById(id);
-        if (serie.isPresent()){
-            Serie s = serie.get();
-            return new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getEvaluacion(), s.getPoster(),
-                    s.getGenero(), s.getActores(), s.getSinopsis());
-        }
-        return null;
-    }
+//    public SerieDTO obtenerPorId(Long id) {
+//        Optional<Serie> serie = repository.findById(id);
+//        if (serie.isPresent()){
+//            Serie s = serie.get();
+//            return new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getEvaluacion(), s.getPoster(),
+//                    s.getGenero(), s.getActores(), s.getSinopsis());
+//        }
+//        return null;
+//    }
 }
