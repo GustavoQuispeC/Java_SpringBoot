@@ -1,5 +1,6 @@
 package com.aluracursos.screematch.service;
 
+import com.aluracursos.screematch.dto.EpisodioDTO;
 import com.aluracursos.screematch.dto.SerieDTO;
 import com.aluracursos.screematch.model.Serie;
 import com.aluracursos.screematch.repository.SerieRepository;
@@ -38,6 +39,17 @@ public class SerieService {
             Serie s = serie.get();
             return new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getEvaluacion(), s.getPoster(),
                     s.getGenero(), s.getActores(), s.getSinopsis());
+        }
+        return null;
+    }
+
+    public List<EpisodioDTO> obtenerTodasLasTemporadas(Long id) {
+        Optional<Serie> serie = repository.findById(id);
+        if (serie.isPresent()){
+            Serie s = serie.get();
+            return s.getEpisodios().stream()
+                    .map(e -> new EpisodioDTO(e.getTemporada(), e.getTitulo(), e.getNumeroEpisodio()))
+                    .collect(Collectors.toList());
         }
         return null;
     }
